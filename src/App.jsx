@@ -10,8 +10,15 @@ import Progressbar from "./components/Progressbar";
 import LastScreen from "./components/LastScreen";
 
 function App() {
-  const { questions, status, index, selectedAnswer, score, dispatch } =
-    useQuestions("http://localhost:8000/questions");
+  const {
+    questions,
+    status,
+    index,
+    selectedAnswer,
+    score,
+    highScore,
+    dispatch,
+  } = useQuestions("http://localhost:8000/questions");
   const questionsLength = questions.length;
   const currentQuestion = questions.at(index);
   const maxScore = questions.reduce(
@@ -52,7 +59,7 @@ function App() {
           </>
         )}
         {status === "finished" && (
-          <LastScreen score={score} maxScore={maxScore} />
+          <LastScreen score={score} maxScore={maxScore} highScore={highScore} />
         )}
       </Main>
     </div>

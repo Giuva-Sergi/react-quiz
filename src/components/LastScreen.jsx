@@ -1,9 +1,27 @@
-function LastScreen({ score, maxScore }) {
+function LastScreen({ score, maxScore, highScore }) {
+  const percentage = Math.ceil((score / maxScore) * 100);
+
+  let emoji;
+
+  if (percentage === 100) {
+    emoji = "🥇";
+  } else if (percentage >= 80 && percentage < 100) {
+    emoji = "🎉";
+  } else if (percentage >= 50 && percentage < 80) {
+    emoji = "😁";
+  } else if (percentage > 0 && percentage < 50) {
+    emoji = "🤔";
+  } else {
+    emoji = "🤦‍♂️";
+  }
+
   return (
-    <p className="result">
-      You scored {score} out of {maxScore} (
-      {Math.ceil((score / maxScore) * 100)}%)
-    </p>
+    <>
+      <p className="result">
+        {emoji} You scored {score} out of {maxScore} ({percentage}%)
+      </p>
+      <p className="highscore">(Highscore: {highScore} points)</p>
+    </>
   );
 }
 

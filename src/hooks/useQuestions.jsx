@@ -7,6 +7,7 @@ const initialState = {
   index: null,
   selectedAnswer: null,
   score: 0,
+  highScore: 0,
 };
 
 function reducer(state, action) {
@@ -37,7 +38,12 @@ function reducer(state, action) {
         selectedAnswer: null,
       };
     case "END_GAME":
-      return { ...state, status: "finished" };
+      return {
+        ...state,
+        status: "finished",
+        highScore:
+          state.score > state.highScore ? state.score : state.highScore,
+      };
     default:
       throw new Error("Action is unknown");
   }
@@ -45,7 +51,7 @@ function reducer(state, action) {
 
 function useQuestions(url) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { questions, status, index, selectedAnswer, score } = state;
+  const { questions, status, index, selectedAnswer, score, highScore } = state;
 
   useEffect(() => {
     const fetchData = async function () {
@@ -67,7 +73,15 @@ function useQuestions(url) {
     fetchData();
   }, []);
 
-  return { questions, status, index, selectedAnswer, score, dispatch };
+  return {
+    questions,
+    status,
+    index,
+    selectedAnswer,
+    score,
+    highScore,
+    dispatch,
+  };
 }
 
 export { useQuestions };
