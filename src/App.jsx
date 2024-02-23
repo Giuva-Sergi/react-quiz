@@ -8,6 +8,8 @@ import Question from "./components/Question";
 import NextButton from "./components/NextButton";
 import Progressbar from "./components/Progressbar";
 import LastScreen from "./components/LastScreen";
+import Footer from "./components/Footer";
+import Timer from "./components/Timer";
 
 function App() {
   const {
@@ -17,6 +19,7 @@ function App() {
     selectedAnswer,
     score,
     highScore,
+    secondsLeft,
     dispatch,
   } = useQuestions("http://localhost:8000/questions");
   const questionsLength = questions.length;
@@ -50,16 +53,24 @@ function App() {
               dispatch={dispatch}
               answer={selectedAnswer}
             />
-            <NextButton
-              dispatch={dispatch}
-              answer={selectedAnswer}
-              index={index}
-              questionsLength={questionsLength}
-            />
+            <Footer>
+              <Timer dispatch={dispatch} secondsLeft={secondsLeft} />
+              <NextButton
+                dispatch={dispatch}
+                answer={selectedAnswer}
+                index={index}
+                questionsLength={questionsLength}
+              />
+            </Footer>
           </>
         )}
         {status === "finished" && (
-          <LastScreen score={score} maxScore={maxScore} highScore={highScore} />
+          <LastScreen
+            score={score}
+            maxScore={maxScore}
+            highScore={highScore}
+            dispatch={dispatch}
+          />
         )}
       </Main>
     </div>

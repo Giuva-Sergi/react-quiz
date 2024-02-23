@@ -1,4 +1,4 @@
-function LastScreen({ score, maxScore, highScore }) {
+function LastScreen({ score, maxScore, highScore, dispatch }) {
   const percentage = Math.ceil((score / maxScore) * 100);
 
   let emoji;
@@ -21,6 +21,12 @@ function LastScreen({ score, maxScore, highScore }) {
         {emoji} You scored {score} out of {maxScore} ({percentage}%)
       </p>
       <p className="highscore">(Highscore: {highScore} points)</p>
+      <button
+        className="btn btn-ui"
+        onClick={() => dispatch({ type: "RESTART_GAME" })}
+      >
+        RESTART
+      </button>
     </>
   );
 }
