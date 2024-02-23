@@ -36,6 +36,8 @@ function reducer(state, action) {
             : action.payload,
         selectedAnswer: null,
       };
+    case "END_GAME":
+      return { ...state, status: "finished" };
     default:
       throw new Error("Action is unknown");
   }

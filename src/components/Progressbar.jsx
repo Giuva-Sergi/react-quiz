@@ -1,5 +1,4 @@
 function Progressbar({ index, questionsLength, score, maxScore, answer }) {
-  console.log(answer);
   return (
     <section className="progress">
       <progress

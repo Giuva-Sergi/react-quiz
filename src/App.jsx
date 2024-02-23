@@ -7,6 +7,7 @@ import StartScreen from "./components/StartScreen";
 import Question from "./components/Question";
 import NextButton from "./components/NextButton";
 import Progressbar from "./components/Progressbar";
+import LastScreen from "./components/LastScreen";
 
 function App() {
   const { questions, status, index, selectedAnswer, score, dispatch } =
@@ -46,8 +47,12 @@ function App() {
               dispatch={dispatch}
               answer={selectedAnswer}
               index={index}
+              questionsLength={questionsLength}
             />
           </>
+        )}
+        {status === "finished" && (
+          <LastScreen score={score} maxScore={maxScore} />
         )}
       </Main>
     </div>
