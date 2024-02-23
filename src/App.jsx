@@ -6,12 +6,17 @@ import Loader from "./components/Loader";
 import StartScreen from "./components/StartScreen";
 import Question from "./components/Question";
 import NextButton from "./components/NextButton";
+import Progressbar from "./components/Progressbar";
 
 function App() {
   const { questions, status, index, selectedAnswer, score, dispatch } =
     useQuestions("http://localhost:8000/questions");
   const questionsLength = questions.length;
   const currentQuestion = questions.at(index);
+  const maxScore = questions.reduce(
+    (acc, question) => acc + question.points,
+    0
+  );
 
   return (
     <div className="app">
@@ -24,6 +29,13 @@ function App() {
         )}
         {status === "active" && (
           <>
+            <Progressbar
+              index={index}
+              questionsLength={questionsLength}
+              score={score}
+              maxScore={maxScore}
+              answer={selectedAnswer}
+            />
             <Question
               question={currentQuestion}
               index={index}
